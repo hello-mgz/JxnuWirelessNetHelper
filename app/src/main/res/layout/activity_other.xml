@@ -37,7 +37,11 @@
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:text="注意：1）请不要禁止软件的自动启动，否则无法自动登录。2）连接wifi时，最好请同时关闭移动数据网络，否则部分手机无法自动登录"/>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="github源代码:https://github.com/mgzgithub/JxnuWirelessNetHelper"/>
     <Button
         android:id="@+id/button_reback"
         android:layout_width="match_parent"
