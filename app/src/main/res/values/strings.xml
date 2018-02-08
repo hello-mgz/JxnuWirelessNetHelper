@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">JxnuWirelessNetHelper</string>
+    <array name="spinner_data">
+        <item>联通校园宽带</item>
+        <item>移动校园宽带</item>
+        <item>电信校园宽带</item>
+        <item>校园宽带</item>
+    </array>
+</resources>
