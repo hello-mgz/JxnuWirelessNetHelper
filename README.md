@@ -3,7 +3,7 @@
 
 目前处于1.0测试版本
 
-目前处于1.1测试版，已经上架到豌豆荚，github项目暂不更新
+目前处于1.1测试版，已经上架到豌豆荚，github上项目暂不更新了，反正也没人看...
 地址：http://www.wandoujia.com/apps/pers.jxnu.maguozhuang.jxnuwirelessnethelper
 
 ## 项目使用协定
