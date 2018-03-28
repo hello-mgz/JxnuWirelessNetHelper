@@ -8,6 +8,9 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     private Button oval;
     private TextView wifi_text;
     private GradientDrawable myGrad;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,7 +53,8 @@ public class MainActivity extends AppCompatActivity
         oval=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.oval);
         wifi_text=(TextView)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.wifi_state);
         myGrad=(GradientDrawable)oval.getBackground();
-
+        mToolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         new Thread(new Runnable()
         {
@@ -170,6 +175,27 @@ public class MainActivity extends AppCompatActivity
                 }).start();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.toolbar,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.connectWeb:
+                Intent intent=new Intent(MainActivity.this,WebActivity.class);
+                startActivity(intent);
+                break;
+            default:break;
+        }
+        return true;
     }
 
     @Override

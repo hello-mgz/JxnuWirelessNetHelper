@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="pers.jxnu.maguozhuang.jxnuwirelessnethelper.MainActivity"
+            android:name=".MainActivity"
             android:label="JxnuWiNet">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -26,13 +26,13 @@
         </activity>
 
         <service
-            android:name="pers.jxnu.maguozhuang.jxnuwirelessnethelper.MyService"
+            android:name=".MyService"
             android:enabled="true"
             android:exported="true">
         </service>
 
         <receiver
-            android:name="pers.jxnu.maguozhuang.jxnuwirelessnethelper.MyReceiver"
+            android:name=".MyReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="1000">
@@ -47,9 +47,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="pers.jxnu.maguozhuang.jxnuwirelessnethelper.OtherActivity">
+        <activity android:name=".OtherActivity">
         </activity>
-        <activity android:name="pers.jxnu.maguozhuang.jxnuwirelessnethelper.SecretActivity">
+        <activity android:name=".SecretActivity">
+        </activity>
+        <activity android:name=".WebActivity">
         </activity>
     </application>
 
