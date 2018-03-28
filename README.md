@@ -11,7 +11,7 @@
 3）快速注销<br>
   
 ### 软件截图：<br>
-
+![截图](https://github.com/mgzgithub/JxnuWirelessNetHelper/img/sreen.png)
 
 ### 常见问题：<br>
 1.如果你觉得经常莫名其妙的自动登录，可以关闭自动登录的功能<br>
