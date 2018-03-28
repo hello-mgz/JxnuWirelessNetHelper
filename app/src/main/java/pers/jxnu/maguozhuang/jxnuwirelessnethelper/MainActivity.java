@@ -1,9 +1,6 @@
-package com.example.ma.jxnuwirelessnethelper;
+package pers.jxnu.maguozhuang.jxnuwirelessnethelper;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -11,11 +8,9 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,17 +37,17 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.layout.activity_main);
 
-        edit_username=(EditText)findViewById(R.id.edit_username);
-        edit_password=(EditText)findViewById(R.id.edit_password);
-        spinner=(Spinner)findViewById(R.id.spinner);
-        button_save=(Button)findViewById(R.id.button_save);
-        button_start=(Button)findViewById(R.id.button_start);
-        button_about=(Button)findViewById(R.id.button_about);
-        button_disconnect=(Button)findViewById(R.id.button_disconnect);
-        oval=(Button)findViewById(R.id.oval);
-        wifi_text=(TextView)findViewById(R.id.wifi_state);
+        edit_username=(EditText)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.edit_username);
+        edit_password=(EditText)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.edit_password);
+        spinner=(Spinner)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.spinner);
+        button_save=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.button_save);
+        button_start=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.button_start);
+        button_about=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.button_about);
+        button_disconnect=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.button_disconnect);
+        oval=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.oval);
+        wifi_text=(TextView)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.wifi_state);
         myGrad=(GradientDrawable)oval.getBackground();
 
 
@@ -71,7 +66,7 @@ public class MainActivity extends AppCompatActivity
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run()
-                            {wifi_text.setText("已连接");}
+                            {wifi_text.setText("连接wifi");}
                         });
                         for(int i=-255;i<=255;i+=5) {
                             final int t=255-Math.abs(i);;
@@ -134,7 +129,7 @@ public class MainActivity extends AppCompatActivity
                         break;
                     default:break;
                 }
-                saveData(edit_username.getText().toString()+selection,edit_password.getText().toString());
+                saveData(edit_username.getText().toString(),selection,edit_password.getText().toString());
                 Toast.makeText(MainActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
             }
         });
@@ -183,30 +178,32 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
     }
 
-    private void saveData(String username, String password)
+    private void saveData(String username,String domain, String password)
     {
         SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
         editor.putString("username",username);
+        editor.putString("domain",domain);
         editor.putString("password",password);
         editor.apply();
     }
 
     private void setDefault()
     {
-        String username,password;
+        String username,password,domain;
         SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
         username=pref.getString("username","");
+        domain=pref.getString("domain","");
         password=pref.getString("password","");
         if(!username.isEmpty())
         {
-            edit_username.setText(username.substring(0,username.length()-5));
+            edit_username.setText(username);
         }
         if(!password.isEmpty())
         {
             edit_password.setText(password);
         }
-        if(!username.isEmpty())
-        switch (username.substring(username.length()-5))
+        if(!domain.isEmpty())
+        switch (domain)
         {
             case "@cucc":
                 spinner.setSelection(0,true);
@@ -224,7 +221,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void disconnectHost()
+    private void disconnectHost()//断开连接
     {
         OkHttpClient client=new OkHttpClient.Builder()
                 .connectTimeout(5000, TimeUnit.MILLISECONDS)
@@ -232,7 +229,7 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
         RequestBody loginform=new FormBody.Builder()
                 .add("action", "logout")
-                .add("username", pref.getString("username","").substring(0,12))
+                .add("username", pref.getString("username",""))
                 .add("ajax", "1")
                 .build();
         Request loginRequest = new Request.Builder()

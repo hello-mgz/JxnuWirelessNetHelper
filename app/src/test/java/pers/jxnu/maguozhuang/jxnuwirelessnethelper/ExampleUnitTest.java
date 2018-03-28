@@ -1,4 +1,4 @@
-package com.example.ma.jxnuwirelessnethelper;
+package pers.jxnu.maguozhuang.jxnuwirelessnethelper;
 
 import org.junit.Test;
 

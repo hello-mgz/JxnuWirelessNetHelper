@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.ma.jxnuwirelessnethelper">
+          package="pers.jxnu.maguozhuang.jxnuwirelessnethelper">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -16,8 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="江西师大校园网">
+            android:name="pers.jxnu.maguozhuang.jxnuwirelessnethelper.MainActivity"
+            android:label="JxnuWiNet">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -26,26 +26,30 @@
         </activity>
 
         <service
-            android:name=".MyService"
+            android:name="pers.jxnu.maguozhuang.jxnuwirelessnethelper.MyService"
             android:enabled="true"
             android:exported="true">
         </service>
 
         <receiver
-            android:name=".MyReceiver"
+            android:name="pers.jxnu.maguozhuang.jxnuwirelessnethelper.MyReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="1000">
-                <!--与WiFi相关的系统广播-->
+
+                <!-- 与WiFi相关的系统广播 -->
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-                <!--<action android:name="android.net.wifi.SCAN_RESULTS" />-->
-                <!--与WiFi相关的系统广播-->
+                <!-- <action android:name="android.net.wifi.SCAN_RESULTS" /> -->
+                <!-- 与WiFi相关的系统广播 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <category android:name="android.intent.category.DEFAULT" />
+
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
 
-        <activity android:name=".OtherActivity">
+        <activity android:name="pers.jxnu.maguozhuang.jxnuwirelessnethelper.OtherActivity">
+        </activity>
+        <activity android:name="pers.jxnu.maguozhuang.jxnuwirelessnethelper.SecretActivity">
         </activity>
     </application>
 

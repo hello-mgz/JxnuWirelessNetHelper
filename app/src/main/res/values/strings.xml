@@ -6,4 +6,8 @@
         <item>电信校园宽带</item>
         <item>校园宽带</item>
     </array>
+    <string name="secret_str">
+    恭喜你，发现彩蛋！！！\n这是一个保留界面！
+    </string>
+    <string name="src_web"><a href='https://github.com/mgzgithub/JxnuWirelessNetHelper'>https://github.com/mgzgithub/JxnuWirelessNetHelper</a></string>
 </resources>

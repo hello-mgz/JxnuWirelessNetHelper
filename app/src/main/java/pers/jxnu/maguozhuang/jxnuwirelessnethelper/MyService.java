@@ -1,25 +1,15 @@
-package com.example.ma.jxnuwirelessnethelper;
+package pers.jxnu.maguozhuang.jxnuwirelessnethelper;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
-import android.support.annotation.IntDef;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +20,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MyService extends Service
+public class    MyService extends Service
 {
     private String username;
     private String password;
@@ -89,12 +79,13 @@ public class MyService extends Service
         RequestBody loginform=new FormBody.Builder()
                 .add("action", "login")
                 .add("username", pref.getString("username",""))
+                .add("domain",pref.getString("domain",""))
                 .add("password", pref.getString("password",""))
                 .add("ac_id", "1")
                 .add("user_ip", "")
                 .add("nas_ip", "")
                 .add("user_mac", "")
-                .add("save_me", "0")
+                .add("save_me", "1")
                 .add("ajax", "1")
                 .build();
 
@@ -132,8 +123,8 @@ public class MyService extends Service
                 .setContentTitle("Hi")
                 .setContentText(str)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
+                .setSmallIcon(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.mipmap.ic_launcher))
                 .setAutoCancel(true)
                 .build();
         manager.notify(1,notification);

@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="当前版本：1.0测试版"
+        android:text="当前版本：1.1测试版"
         android:gravity="center"
         android:layout_marginTop="20dp"
         android:padding="10dp"
@@ -40,8 +40,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:text="github源代码:https://github.com/mgzgithub/JxnuWirelessNetHelper"/>
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:text="测试版源代码:"/>
+    <TextView
+        android:id="@+id/src_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingLeft="20dp"
+        android:textSize="12sp"
+        android:text="@string/src_web"
+        />
     <Button
         android:id="@+id/button_reback"
         android:layout_width="match_parent"
