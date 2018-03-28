@@ -12,7 +12,7 @@
   
 ### 软件截图：<br>
 
-<img src="https://raw.githubusercontent.com/mgzgithub/JxnuWirelessNetHelper/master/img/screen.png" width="50%" height="50%" alt="截图"/>
+<img src="https://raw.githubusercontent.com/mgzgithub/JxnuWirelessNetHelper/master/img/screen.png" width="30%" height="30%" alt="截图"/>
 
 ### 常见问题：<br>
 1.如果你觉得经常莫名其妙的自动登录，可以关闭自动登录的功能<br>
