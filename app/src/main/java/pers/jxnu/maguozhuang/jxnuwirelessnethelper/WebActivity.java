@@ -45,12 +45,12 @@ public class WebActivity extends AppCompatActivity
 
     private void setCookies(String url)
     {
-        CookieManager  mCookieManager=CookieManager.getInstance();
+        /*CookieManager  mCookieManager=CookieManager.getInstance();
         mCookieManager.setAcceptCookie(true);
         SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
         String cookieStr=pref.getString("cookie","");
         Log.d("Debug","setCookie:"+cookieStr);
         if(!cookieStr.isEmpty())
-        mCookieManager.setCookie(cookieStr,url);
+        mCookieManager.setCookie(cookieStr,url);*/
     }
 }

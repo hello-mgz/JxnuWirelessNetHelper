@@ -22,8 +22,6 @@ import okhttp3.Response;
 
 public class    MyService extends Service
 {
-    private String username;
-    private String password;
     public MyService()
     {
     }
@@ -38,7 +36,7 @@ public class    MyService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-
+        final boolean isstartByActivity=intent.getBooleanExtra("startByActivity",false);
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         String ssid=wifiInfo.getSSID();
@@ -49,7 +47,7 @@ public class    MyService extends Service
                 @Override
                 public void run()
                 {
-                    connectHost();
+                    connectHost(isstartByActivity);
                     stopSelf();
                 }
             }).start();
@@ -70,12 +68,14 @@ public class    MyService extends Service
     }
 
 
-    public void connectHost()
+    public void connectHost(boolean handflag)
     {
         OkHttpClient client=new OkHttpClient.Builder()
                 .connectTimeout(5000, TimeUnit.MILLISECONDS)
                 .build();
         SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
+        if(pref.getBoolean("auto_login",false)==false&&handflag==false)
+            return;
         RequestBody loginform=new FormBody.Builder()
                 .add("action", "login")
                 .add("username", pref.getString("username",""))

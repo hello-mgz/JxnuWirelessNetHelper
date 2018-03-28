@@ -23,7 +23,7 @@ public class OtherActivity extends AppCompatActivity
     private Button but_reback;
     private GestureDetector gestureDetector;
     private String username;
-    static final private String yjusername="201526202038";
+    static final private String yjusername="2015262020";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
