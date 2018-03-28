@@ -11,7 +11,6 @@
 3）快速注销<br>
   
 ### 软件截图：<br>
-![截图](https://raw.githubusercontent.com/mgzgithub/JxnuWirelessNetHelper/master/img/screen.png)
 
 <img src="https://raw.githubusercontent.com/mgzgithub/JxnuWirelessNetHelper/master/img/screen.png" width="50%" height="50%" alt="截图"/>
 
