@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -20,9 +21,10 @@ public class WebActivity extends AppCompatActivity
         setContentView(R.layout.activity_web);
         mWebView=(WebView)findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);
+
         mWebView.setWebViewClient(new WebViewClient());
+        syncCookies(URL);
         mWebView.loadUrl(URL);
-        setCookies(URL);
     }
 
     @Override
@@ -37,20 +39,25 @@ public class WebActivity extends AppCompatActivity
         CookieManager  mCookieManager=CookieManager.getInstance();
         mCookieManager.setAcceptCookie(true);
         String cookieStr = mCookieManager.getCookie(url);
+
         SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
         editor.putString("cookie",cookieStr);
         editor.apply();
         Log.d("Debug","getCookie:"+cookieStr);
     }
 
-    private void setCookies(String url)
+    private void syncCookies(String url)
     {
-        /*CookieManager  mCookieManager=CookieManager.getInstance();
+        //CookieSyncManager.createInstance(WebActivity.this);
+        CookieManager  mCookieManager=CookieManager.getInstance();
         mCookieManager.setAcceptCookie(true);
+        //mCookieManager.removeSessionCookie();// 移除
+        //mCookieManager.removeAllCookie();
         SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
         String cookieStr=pref.getString("cookie","");
         Log.d("Debug","setCookie:"+cookieStr);
         if(!cookieStr.isEmpty())
-        mCookieManager.setCookie(cookieStr,url);*/
+        mCookieManager.setCookie(cookieStr,url);
+        //CookieSyncManager.getInstance().sync();
     }
 }

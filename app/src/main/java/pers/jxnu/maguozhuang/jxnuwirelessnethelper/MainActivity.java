@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 Intent startIntent=new Intent(MainActivity.this,MyService.class);
-                startIntent.putExtra("startByActivity",true);
+                startIntent.putExtra(MyService.MyServiceData,MyService.LoginByActivity);
                 startService(startIntent);
                 //Toast.makeText(MainActivity.this,"启动成功",Toast.LENGTH_SHORT).show();
             }

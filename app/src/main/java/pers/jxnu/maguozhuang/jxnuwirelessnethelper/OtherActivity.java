@@ -99,7 +99,7 @@ public class OtherActivity extends AppCompatActivity
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
             {
-                if(e1.getRawX()-e2.getRawX()>100 && (username.substring(0,12)).equals(yjusername))
+                if(e1.getRawX()-e2.getRawX()>100 && username.equals(yjusername))
                 {
                     startSecretTask();
                     return true;
