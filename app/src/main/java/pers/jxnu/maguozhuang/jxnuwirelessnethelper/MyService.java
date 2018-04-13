@@ -20,7 +20,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class    MyService extends Service
+public class MyService extends Service
 {
     public static final int LoginByBroadcast=1;
     public static final int LoginByActivity=2;
@@ -112,6 +112,7 @@ public class    MyService extends Service
             }
         }
         catch (IOException e){e.printStackTrace();showNotification("登录失败，地址无法访问！");}
+        catch (Exception e){e.printStackTrace();}
     }
 
     private int isConnect(String body)

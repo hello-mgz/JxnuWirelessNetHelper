@@ -57,7 +57,7 @@ public class WebActivity extends AppCompatActivity
         String cookieStr=pref.getString("cookie","");
         Log.d("Debug","setCookie:"+cookieStr);
         if(!cookieStr.isEmpty())
-        mCookieManager.setCookie(cookieStr,url);
+        mCookieManager.setCookie(url,cookieStr);
         //CookieSyncManager.getInstance().sync();
     }
 }
