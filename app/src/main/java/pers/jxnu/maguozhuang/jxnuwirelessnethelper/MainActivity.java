@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity
         mSwitch=(Switch)findViewById(R.id.mySwitch);
 
         mAllMyInfo=AllMyInfo.getInstance(getApplicationContext());
-        BreathLampHandler handler=new BreathLampHandler(myGrad,wifi_text,getApplicationContext());
-        handler.sendEmptyMessage(0);
+        BreathLampMannager mannager=new BreathLampMannager(myGrad,wifi_text,getApplicationContext());
+
 
         setDefault();//恢复数据
 
