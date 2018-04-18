@@ -41,95 +41,46 @@ public class MainActivity extends AppCompatActivity
     private GradientDrawable myGrad;
     private Toolbar mToolbar;
     private Switch mSwitch;
-
+    private AllMyInfo mAllMyInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
-        edit_username=(EditText)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.edit_username);
-        edit_password=(EditText)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.edit_password);
-        spinner=(Spinner)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.spinner);
-        button_start=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.button_start);
-        button_about=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.button_about);
-        button_disconnect=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.button_disconnect);
-        oval=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.oval);
-        wifi_text=(TextView)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.wifi_state);
+        edit_username=(EditText)findViewById(R.id.edit_username);
+        edit_password=(EditText)findViewById(R.id.edit_password);
+        spinner=(Spinner)findViewById(R.id.spinner);
+        button_start=(Button)findViewById(R.id.button_start);
+        button_about=(Button)findViewById(R.id.button_about);
+        button_disconnect=(Button)findViewById(R.id.button_disconnect);
+        oval=(Button)findViewById(R.id.oval);
+        wifi_text=(TextView)findViewById(R.id.wifi_state);
         myGrad=(GradientDrawable)oval.getBackground();
         mToolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mSwitch=(Switch)findViewById(R.id.mySwitch);
 
-        new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-                while (true)
-                {
-                    WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                    final String ssid=wifiInfo.getSSID();
-                    if(ssid.equals("\"jxnu_stu\""))
-                    {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run()
-                            {wifi_text.setText("连接wifi");}
-                        });
-                        for(int i=-255;i<=255;i+=5) {
-                            final int t=255-Math.abs(i);;
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run()
-                                {myGrad.setColor(Color.rgb(255-t,255,255-t));}
-                            });
-                            try
-                            {
-                                Thread.sleep(50);
-                            }catch (InterruptedException e){e.printStackTrace();}
-                        }
-                    }
-                    else
-                    {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run()
-                            {wifi_text.setText("未连接");}
-                        });
-                        for(int i=-255;i<=255;i+=5) {
-                            final int t=255-Math.abs(i);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run()
-                                {myGrad.setColor(Color.rgb(255,255-t,255-t));}
-                            });
-                            try
-                            {
-                                Thread.sleep(50);
-                            }catch (InterruptedException e){e.printStackTrace();}
-                        }
-                    }
-                }
-
-            }
-        }).start();
+        mAllMyInfo=AllMyInfo.getInstance(getApplicationContext());
+        BreathLampHandler handler=new BreathLampHandler(myGrad,wifi_text,getApplicationContext());
+        handler.sendEmptyMessage(0);
 
         setDefault();//恢复数据
 
+        //启动后台登录服务
         button_start.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Intent startIntent=new Intent(MainActivity.this,MyService.class);
-                startIntent.putExtra(MyService.MyServiceData,MyService.LoginByActivity);
+                Intent startIntent=new Intent(MainActivity.this,LoginIntentService.class);
+                startIntent.putExtra(LoginIntentService.StartServiceCode,LoginIntentService.LoginByActivity);
                 startService(startIntent);
                 //Toast.makeText(MainActivity.this,"启动成功",Toast.LENGTH_SHORT).show();
             }
         });
 
+        //启动OtherActivity
         button_about.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -140,35 +91,27 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //断开连接
         button_disconnect.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                new Thread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        disconnectHost();
-                    }
-                }).start();
+                runOnUiThread(()->{
+                    String info=LoginAdapter.executeLoginOut(mAllMyInfo);
+                    Toast.makeText(MainActivity.this,info,Toast.LENGTH_SHORT).show();
+                });
             }
         });
 
+        //开关
         mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
-                if(isChecked) {
-                    editor.putBoolean("auto_login",true);
-                }
-                else{
-                    editor.putBoolean("auto_login",false);
-                }
-                editor.apply();
+                mAllMyInfo.setAutoLogin(isChecked)
+                        .execute();
             }
         });
     }
@@ -197,7 +140,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy()
     {
-
         super.onDestroy();
     }
 
@@ -223,12 +165,11 @@ public class MainActivity extends AppCompatActivity
             default:break;
         }
         String domain=selection;
-        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-        if(!username.equals(pref.getString("username","")))
+        if(!username.equals(mAllMyInfo.getUsername()))
             return true;
-        if(!domain.equals(pref.getString("domain","")))
+        if(!domain.equals(mAllMyInfo.getDomain()))
             return true;
-        if(!password.equals(pref.getString("password","")))
+        if(!password.equals(mAllMyInfo.getPassword()))
             return true;
         return false;
     }
@@ -271,7 +212,7 @@ public class MainActivity extends AppCompatActivity
     {
         String username=edit_username.getText().toString();
         String password=edit_password.getText().toString();
-        String selection="";
+        String selection="@cucc";
         switch (spinner.getSelectedItem().toString())
         {
             case "联通校园宽带":
@@ -288,35 +229,20 @@ public class MainActivity extends AppCompatActivity
                 break;
             default:break;
         }
-        String domain=selection;
-        SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
-        editor.putString("username",username);
-        editor.putString("domain",domain);
-        editor.putString("password",password);
-        editor.apply();
+
+        //使用建造者模式保存信息
+        mAllMyInfo.setUsername(username)
+            .setPassword(password)
+            .setDomain(selection)
+            .execute();
     }
 
     private void setDefault()
     {
-        String username,password,domain;
-        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-        username=pref.getString("username","");
-        domain=pref.getString("domain","");
-        password=pref.getString("password","");
-        boolean auto;
-        auto=pref.getBoolean("auto_login",true);
-        if(auto)
-            mSwitch.setChecked(auto);
-        if(!username.isEmpty())
-        {
-            edit_username.setText(username);
-        }
-        if(!password.isEmpty())
-        {
-            edit_password.setText(password);
-        }
-        if(!domain.isEmpty())
-        switch (domain)
+        mSwitch.setChecked(mAllMyInfo.isAutoLogin());
+        edit_username.setText(mAllMyInfo.getUsername());
+        edit_password.setText(mAllMyInfo.getPassword());
+        switch (mAllMyInfo.getDomain())
         {
             case "@cucc":
                 spinner.setSelection(0,true);
@@ -330,50 +256,8 @@ public class MainActivity extends AppCompatActivity
             case "@jxnu":
                 spinner.setSelection(3,true);
                 break;
-            default:break;
+            default:spinner.setSelection(0,true);
+                break;
         }
     }
-
-    private void disconnectHost()//断开连接
-    {
-        OkHttpClient client=new OkHttpClient.Builder()
-                .connectTimeout(5000, TimeUnit.MILLISECONDS)
-                .build();
-        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-        RequestBody loginform=new FormBody.Builder()
-                .add("action", "logout")
-                .add("username", pref.getString("username",""))
-                .add("ajax", "1")
-                .build();
-        Request loginRequest = new Request.Builder()
-                .url("http://219.229.251.2/include/auth_action.php")
-                .post(loginform)
-                .build();
-        try {
-            //非异步执行
-            Response loginResponse = client.newCall(loginRequest).execute();
-            String body=loginResponse.body().string();
-            final String info=body.toString();
-            runOnUiThread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    Toast.makeText(MainActivity.this,info,Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-            runOnUiThread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    Toast.makeText(MainActivity.this,"访问失败",Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
-
 }

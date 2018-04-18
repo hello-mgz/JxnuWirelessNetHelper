@@ -10,8 +10,8 @@ public class MyReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        Intent startIntent=new Intent(context,MyService.class);
-        startIntent.putExtra(MyService.MyServiceData,true);
+        Intent startIntent=new Intent(context,LoginIntentService.class);
+        startIntent.putExtra(LoginIntentService.StartServiceCode,LoginIntentService.LoginByBroadcast);
         context.startService(startIntent);
     }
 }

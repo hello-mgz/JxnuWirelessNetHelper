@@ -25,12 +25,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".MyService"
-            android:enabled="true"
-            android:exported="true">
-        </service>
-
         <receiver
             android:name=".MyReceiver"
             android:enabled="true"
@@ -53,6 +47,13 @@
         </activity>
         <activity android:name=".WebActivity">
         </activity>
+        <activity android:name=".LoginActivity">
+        </activity>
+
+        <service
+            android:name=".LoginIntentService"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>
