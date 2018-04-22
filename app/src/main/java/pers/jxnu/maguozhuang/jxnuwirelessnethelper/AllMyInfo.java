@@ -3,6 +3,8 @@ package pers.jxnu.maguozhuang.jxnuwirelessnethelper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Date;
+
 /**
  * Created by ma on 2018/4/18.
  * 采用实例模式保存所有需要的信息
@@ -15,7 +17,8 @@ public class AllMyInfo
     public static final String PASSWORD="DATA.password";
     public static final String DOMAIN="DATA.domain";
     public static final String AUTOLOGIN="DATA.autoLogin";
-    public static final String SHOWNOTIFICATION="DATA.autoLogin";
+    public static final String SHOWNOTIFICATION="DATA.ShowNotification";
+    public static final String FIRSTLOGIN="DATA.FirstLogin";
 
     //静态变量
     private static AllMyInfo sInfo;//唯一实例
@@ -37,6 +40,7 @@ public class AllMyInfo
     private String domain;//运营商域名
     private boolean AutoLogin;//是否自动登录，默认自动
     private boolean ShowNotification;//是否显示状态栏通知，默认显示
+    private boolean firstLogin;
 
     //构造方法
     private AllMyInfo(Context context)
@@ -46,8 +50,9 @@ public class AllMyInfo
         username=pref.getString(USERNAME,"");
         password=pref.getString(PASSWORD,"");
         domain=pref.getString(DOMAIN,"");
-        AutoLogin=pref.getBoolean(AUTOLOGIN,true);
+        AutoLogin=pref.getBoolean(AUTOLOGIN,false);
         ShowNotification=pref.getBoolean(SHOWNOTIFICATION,true);
+        firstLogin=pref.getBoolean(FIRSTLOGIN,true);
     }
 
     public boolean isAutoLogin()
@@ -58,6 +63,15 @@ public class AllMyInfo
     public boolean isShowNotification()
     {
         return ShowNotification;
+    }
+
+    public boolean isFirstLogin(){
+        if(firstLogin)
+        {
+            firstLogin=false;
+            return true;
+        }
+        return firstLogin;
     }
 
     public String getUsername()
@@ -114,6 +128,7 @@ public class AllMyInfo
         editor.putString(DOMAIN,domain);
         editor.putBoolean(AUTOLOGIN,AutoLogin);
         editor.putBoolean(SHOWNOTIFICATION,ShowNotification);
+        editor.putBoolean(FIRSTLOGIN,firstLogin);
         editor.apply();
     }
 }

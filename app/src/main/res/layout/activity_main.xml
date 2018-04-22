@@ -14,43 +14,14 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:navigationIcon="@drawable/login_icon"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
-    <EditText
-        android:id="@+id/edit_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:lines="1"
-        android:hint="账号"
-        android:drawableRight="@drawable/acount"
-        android:layout_margin="20dp"
-        android:paddingLeft="10dp"
-        android:maxLength="20"/>
-
-    <EditText
-        android:id="@+id/edit_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="密码"
-        android:drawableRight="@drawable/key"
-        android:lines="1"
-        android:inputType="textPassword"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:paddingLeft="10dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal">
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:entries="@array/spinner_data"/>
         <Button
             android:id="@+id/oval"
             android:layout_width="10dp"
@@ -66,33 +37,6 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
             android:text="已连接"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="15dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="自动登录:"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="40dp"
-            android:textSize="16sp"/>
-        <Switch
-            android:id="@+id/mySwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOff=""
-            android:textOn=""
-            android:switchMinWidth="20dp"
-            android:thumb="@drawable/thumb"
-            android:track="@drawable/track"
-            />
     </LinearLayout>
 
 
