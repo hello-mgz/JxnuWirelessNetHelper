@@ -13,11 +13,9 @@
 ### 软件截图：<br>
 
 <img src="https://raw.githubusercontent.com/mgzgithub/JxnuWirelessNetHelper/master/img/screen1.png" width="30%" height="30%" alt="截图"/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="https://raw.githubusercontent.com/mgzgithub/JxnuWirelessNetHelper/master/img/screen2.png" width="30%" height="30%" alt="截图"/>
 <br>
 <img src="https://raw.githubusercontent.com/mgzgithub/JxnuWirelessNetHelper/master/img/screen33.png" width="30%" height="30%" alt="截图"/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="https://raw.githubusercontent.com/mgzgithub/JxnuWirelessNetHelper/master/img/screen44.png" width="30%" height="30%" alt="截图"/>
 <br>
 ### 常见问题：<br>
