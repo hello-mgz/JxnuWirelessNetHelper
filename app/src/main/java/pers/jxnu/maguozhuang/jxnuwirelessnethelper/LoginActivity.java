@@ -4,11 +4,13 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+
 
 public class LoginActivity extends AppCompatActivity
 {
@@ -16,7 +18,8 @@ public class LoginActivity extends AppCompatActivity
     private Spinner spinner;
     private Switch mSwitch;
     private AllMyInfo mAllMyInfo;
-
+    private Toolbar mToolbar;
+    private Switch mSwitch_showNotification;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -28,6 +31,10 @@ public class LoginActivity extends AppCompatActivity
         spinner=(Spinner)findViewById(R.id.spinner);
         mSwitch=(Switch)findViewById(R.id.mySwitch);
         mAllMyInfo=AllMyInfo.getInstance(getApplicationContext());
+        mToolbar=(Toolbar)findViewById(R.id.login_toolbar);
+        mSwitch_showNotification=(Switch) findViewById(R.id.switch_showNotification);
+
+        setSupportActionBar(mToolbar);
         Log.d("Debug","开始时"+mAllMyInfo.isAutoLogin()+" "+mSwitch.isChecked());
         setDefault();//恢复数据
         Log.d("Debug","恢复后"+mAllMyInfo.isAutoLogin()+" "+mSwitch.isChecked());
@@ -42,6 +49,20 @@ public class LoginActivity extends AppCompatActivity
                         .execute();
                 Log.d("Debug","change2"+mAllMyInfo.isAutoLogin());
             }
+        });
+        mSwitch_showNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                Log.d("Debug","change1"+mAllMyInfo.isAutoLogin());
+                mAllMyInfo.setShowNotification(isChecked)
+                        .execute();
+                Log.d("Debug","change2"+mAllMyInfo.isAutoLogin());
+            }
+        });
+        mToolbar.setNavigationOnClickListener((v)->{
+            onBackPressed();
         });
     }
 
@@ -149,6 +170,8 @@ public class LoginActivity extends AppCompatActivity
     private void setDefault()
     {
         mSwitch.setChecked(mAllMyInfo.isAutoLogin());
+        mSwitch_showNotification.setChecked(mAllMyInfo.isShowNotification());
+
         edit_username.setText(mAllMyInfo.getUsername());
         edit_password.setText(mAllMyInfo.getPassword());
         switch (mAllMyInfo.getDomain())

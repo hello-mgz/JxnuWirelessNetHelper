@@ -6,67 +6,134 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="pers.jxnu.maguozhuang.jxnuwirelessnethelper.LoginActivity">
-    <pers.jxnu.maguozhuang.jxnuwirelessnethelper.MyEditText
-        android:id="@+id/edit_username"
+    tools:context="pers.jxnu.maguozhuang.jxnuwirelessnethelper.LoginActivity"
+    android:background="#FFCCCC">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/login_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="1"
-        android:inputType="number"
-        android:hint="账号"
-        android:drawableLeft="@drawable/acount"
-        android:drawablePadding="10dp"
-        android:layout_margin="20dp"
-        android:paddingLeft="10dp"
-        android:maxLength="20"
-        app:deleteImg="@drawable/clear"/>
-
-    <pers.jxnu.maguozhuang.jxnuwirelessnethelper.MyEditText
-        android:id="@+id/edit_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="密码"
-        android:drawableLeft="@drawable/key"
-        android:drawablePadding="10dp"
-        android:lines="1"
-        android:inputType="textPassword"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:paddingLeft="10dp"
-        app:deleteImg="@drawable/clear"/>
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:entries="@array/spinner_data"/>
+        android:background="#FFCCCC"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:navigationIcon="@drawable/ic_action_home"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="15dp">
-        <TextView
-            android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/linerlayout_background">
+
+        <pers.jxnu.maguozhuang.jxnuwirelessnethelper.MyEditText
+            android:id="@+id/edit_username"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="自动登录:"
+            android:lines="1"
+            android:inputType="number"
+            android:hint="账号"
+            android:drawableLeft="@drawable/ic_show_account"
+            android:drawablePadding="10dp"
+            android:layout_margin="20dp"
+            android:paddingLeft="10dp"
+            android:maxLength="20"
+            android:background="@drawable/edit_text_background"
+            app:deleteImg="@drawable/ic_action_delete"/>
+
+        <pers.jxnu.maguozhuang.jxnuwirelessnethelper.MyEditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="密码"
+            android:drawableLeft="@drawable/ic_show_key"
+            android:drawablePadding="10dp"
+            android:lines="1"
+            android:inputType="textPassword"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="40dp"
-            android:textSize="16sp"/>
-        <Switch
-            android:id="@+id/mySwitch"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:paddingLeft="10dp"
+            android:maxLength="99"
+            android:background="@drawable/edit_text_background"
+            app:deleteImg="@drawable/ic_action_delete"/>
+        <LinearLayout
+            android:layout_marginBottom="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textOff=""
-            android:textOn=""
-            android:switchMinWidth="20dp"
-            android:thumb="@drawable/thumb"
-            android:track="@drawable/track"
-            />
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="运营商："/>
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:entries="@array/spinner_data"/>
+        </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:orientation="vertical"
+        android:background="@drawable/linerlayout_background">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="自动登录"
+                android:textSize="16sp"/>
+            <Switch
+                android:id="@+id/mySwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textOff=""
+                android:textOn=""
+                android:switchMinWidth="20dp"
+                android:thumb="@drawable/thumb"
+                android:track="@drawable/track"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="通知栏提醒"
+                android:textSize="16sp"/>
+            <Switch
+                android:id="@+id/switch_showNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textOff=""
+                android:textOn=""
+                android:switchMinWidth="20dp"
+                android:thumb="@drawable/thumb"
+                android:track="@drawable/track"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+
 </LinearLayout>

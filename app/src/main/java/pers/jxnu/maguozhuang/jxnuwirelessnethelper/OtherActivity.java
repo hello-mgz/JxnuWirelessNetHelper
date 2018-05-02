@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -20,9 +21,10 @@ import org.jsoup.nodes.Element;
 public class OtherActivity extends AppCompatActivity
 {
     private TextView text_net,src_text;
-    private Button but_reback;
     private GestureDetector gestureDetector;
+    private Toolbar mToolbar;
     private String username;
+
     static final private String yjusername="2015262020";
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,23 +32,14 @@ public class OtherActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.layout.activity_other);
         ActionBar actionBar=getSupportActionBar();
-        if(actionBar!=null)
-            actionBar.hide();
+
         SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
         username=pref.getString("username","");
         text_net=(TextView)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.text_net);
         src_text=(TextView)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.src_text);
-
+        mToolbar=(Toolbar)findViewById(R.id.about_toolbar);
+        setSupportActionBar(mToolbar);
         src_text.setMovementMethod(LinkMovementMethod.getInstance());
-        but_reback=(Button)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.button_reback);
-        but_reback.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                finish();
-            }
-        });
         new Thread(new Runnable()
         {
             @Override
@@ -107,7 +100,9 @@ public class OtherActivity extends AppCompatActivity
                 return false;
             }
         });
-
+        mToolbar.setNavigationOnClickListener((v)->{
+            finish();
+        });
     }
 
     private void startSecretTask()

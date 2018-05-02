@@ -1,11 +1,14 @@
 package pers.jxnu.maguozhuang.jxnuwirelessnethelper;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -22,7 +25,7 @@ public class LoginAdapter
 
     public static final String LoginSuccessStr="login_ok";
 
-    public static String executeLoginIn(AllMyInfo allMyInfo)
+    public static void executeLoginIn(AllMyInfo allMyInfo,Callback callback)
     {
         OkHttpClient client=new OkHttpClient.Builder()
                 .connectTimeout(5000, TimeUnit.MILLISECONDS)
@@ -44,22 +47,25 @@ public class LoginAdapter
                 .url("http://219.229.251.2/include/auth_action.php")
                 .post(loginform)
                 .build();
-        String body="未知信息";
-        try {
-            Response loginResponse=client.newCall(loginRequest).execute();
-            body=loginResponse.body().string().toString();
-        }
-        catch (IOException e){
-            e.printStackTrace();body="登录失败，地址无法访问！";
-        }
-        catch (Exception e){e.printStackTrace();}
-        if(body.contains(LoginSuccessStr))
-            return "登录成功！";
-        return body;
+        client.newCall(loginRequest).enqueue(new Callback()
+        {
+            @Override
+            public void onFailure(Call call, IOException e)
+            {
+                callback.onFailure(call,e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException
+            {
+                callback.onResponse(call,response);
+            }
+        });
     }
 
-    public static String executeLoginOut(AllMyInfo allMyInfo)
+    public static void executeLoginOut(AllMyInfo allMyInfo,Callback callback)
     {
+
         OkHttpClient client=new OkHttpClient.Builder()
                 .connectTimeout(5000, TimeUnit.MILLISECONDS)
                 .build();
@@ -72,18 +78,19 @@ public class LoginAdapter
                 .url("http://219.229.251.2/include/auth_action.php")
                 .post(loginform)
                 .build();
-        String backInfo="未知信息";
-        try {
-            //非异步执行
-            Response loginResponse = client.newCall(loginRequest).execute();
-            String body=loginResponse.body().string();
-            backInfo=body.toString();
+        client.newCall(loginRequest).enqueue(new Callback()
+        {
+            @Override
+            public void onFailure(Call call, IOException e)
+            {
+                callback.onFailure(call,e);
+            }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            backInfo="访问失败";
-        }
-        catch (Exception e){e.printStackTrace();}
-        return backInfo;
+            @Override
+            public void onResponse(Call call, Response response) throws IOException
+            {
+                callback.onResponse(call,response);
+            }
+        });
     }
 }

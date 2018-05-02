@@ -4,6 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+/**
+ * 广播接收器：用于启动后台服务
+ */
 public class MyReceiver extends BroadcastReceiver
 {
 

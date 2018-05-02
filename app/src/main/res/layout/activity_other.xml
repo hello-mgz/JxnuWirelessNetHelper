@@ -4,14 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#FFCCCC">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/about_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFCCCC"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:navigationIcon="@drawable/ic_action_home"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="当前版本：1.2-beta"
         android:gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         android:textSize="18sp"/>
 
@@ -42,7 +53,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
-        android:text="测试版源代码:"/>
+        android:text="源代码及最新版本获取:"/>
     <TextView
         android:id="@+id/src_text"
         android:layout_width="match_parent"
@@ -50,14 +61,5 @@
         android:paddingTop="5dp"
         android:paddingLeft="20dp"
         android:textSize="12sp"
-        android:text="@string/src_web"
-        />
-    <Button
-        android:id="@+id/button_reback"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="返回"
-        android:padding="10dp"
-        android:layout_margin="15dp"
-        android:background="@drawable/btn_selector"/>
+        android:text="@string/src_web"/>
 </LinearLayout>

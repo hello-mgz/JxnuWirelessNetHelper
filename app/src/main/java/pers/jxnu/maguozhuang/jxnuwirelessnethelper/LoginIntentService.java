@@ -11,12 +11,21 @@ import android.net.wifi.WifiManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
 
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  * <p>
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
+ */
+/**
+ * 后台服务：在条件允许的情况下执行自动登录
  */
 public class LoginIntentService extends IntentService
 {
@@ -131,22 +140,31 @@ public class LoginIntentService extends IntentService
         if(ssid.equals(WifiName))
         {
             String backInfo=null;
+            Callback callback=new Callback()
+            {
+                @Override
+                public void onFailure(Call call, IOException e)
+                {
+                    showNotification("未知错误");
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException
+                {
+                    String backInfo=response.body().string().toString();
+                    showNotification(backInfo);
+                }
+            };
             switch (LoginCode)
             {
                 case LoginByActivity:
-                    backInfo=LoginAdapter.executeLoginIn(mAllMyInfo);//调用登录方法
+                    LoginAdapter.executeLoginIn(mAllMyInfo,callback);//调用登录方法
                     break;
                 case LoginByBroadcast:
                     if(mAllMyInfo.isAutoLogin())//检查是否自动登录
-                        backInfo=LoginAdapter.executeLoginIn(mAllMyInfo);
+                        LoginAdapter.executeLoginIn(mAllMyInfo,callback);
                     break;
                 default:break;
-            }
-            if(backInfo!=null)
-            {
-                if(mAllMyInfo.isShowNotification()) {
-                    showNotification(backInfo);
-                }
             }
         }
         return super.onStartCommand(intent, flags, startId);
@@ -161,6 +179,9 @@ public class LoginIntentService extends IntentService
     //显示通知信息
     private void showNotification(String str)
     {
+        if(!mAllMyInfo.isShowNotification()) return;
+        if(str.contains("login_ok"))
+            str="登录成功";
         NotificationManager manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         Notification notification=new NotificationCompat.Builder(this)
                 .setContentTitle("Hi")

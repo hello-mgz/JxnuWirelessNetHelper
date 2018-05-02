@@ -2,9 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/connectWeb"
-        android:icon="@drawable/internet"
-        android:title="自服务"
+        android:id="@+id/button_about"
+        android:title="关于"
         app:showAsAction="ifRoom"
-        />
+        android:icon="@drawable/ic_action_about"/>
+
+    <item
+        android:id="@+id/connectWeb"
+        android:title="自服务"
+        app:showAsAction="ifRoom"/>
 </menu>

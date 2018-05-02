@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:background="@drawable/main_background">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,58 +13,102 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:navigationIcon="@drawable/login_icon"
+        app:navigationIcon="@drawable/ic_action_login"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
-        <Button
-            android:id="@+id/oval"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/oval"/>
-
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:background="@drawable/linerlayout_background"
+        android:alpha="0.7">
         <TextView
-            android:id="@+id/wifi_state"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="10dp"
-            android:text="已连接"/>
+            android:text="系统公告"
+            android:layout_marginBottom="5dp"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/announcement"/>
+        </ScrollView>
     </LinearLayout>
-
-
-    <Button
-        android:id="@+id/button_start"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:text="手动登录"
-        android:background="@drawable/btn_selector"/>
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:background="@drawable/linerlayout_background"
+        android:alpha="0.7">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="20dp">
+            <Button
+                android:id="@+id/oval"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/oval"/>
+            <TextView
+                android:id="@+id/wifi_state"
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="已连接"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="40dp"
+                android:text="实时速度"
+                android:textSize="12sp"/>
+            <pers.jxnu.maguozhuang.jxnuwirelessnethelper.InternetSpeedTextView
+                android:id="@+id/text_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="32sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/button_start"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="15dp"
+                android:text="登录"
+                android:background="@drawable/btn_selector"/>
 
-    <Button
-        android:id="@+id/button_disconnect"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="15dp"
-        android:text="一键注销"
-        android:background="@drawable/btn_selector"/>
-
-    <Button
-        android:id="@+id/button_about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:text="关于"
-        android:background="@drawable/btn_selector"/>
+            <Button
+                android:id="@+id/button_disconnect"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="15dp"
+                android:text="注销"
+                android:background="@drawable/btn_selector"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

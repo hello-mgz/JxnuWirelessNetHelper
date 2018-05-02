@@ -51,7 +51,6 @@ public class MyEditText extends AppCompatEditText
 
     private void init(AttributeSet attrs)
     {
-
         TypedArray typedArray=mContext.obtainStyledAttributes(attrs,R.styleable.MyEditText);
         delete_Img=typedArray.getDrawable(R.styleable.MyEditText_deleteImg);
         typedArray.recycle();
