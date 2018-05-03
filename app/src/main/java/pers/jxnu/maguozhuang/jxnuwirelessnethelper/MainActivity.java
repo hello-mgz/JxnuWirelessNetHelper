@@ -81,39 +81,18 @@ public class MainActivity extends AppCompatActivity
             overridePendingTransition(R.anim.activity_open,R.anim.activity_close);
         });
 
-        //启动后台登录服务
+        //启动登录服务
         button_start.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Callback callback=new Callback()
-                {
-                    @Override
-                    public void onFailure(Call call, IOException e)
-                    {
-                        runOnUiThread(()-> {
-                        Toast.makeText(MainActivity.this,"未知错误",Toast.LENGTH_SHORT).show();
-                        });
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException
-                    {
-                        final String backInfo=response.body().string().toString();
-                        runOnUiThread(()-> {
-                            if(backInfo.contains("login_ok"))
-                                Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                            else if(backInfo.contains("延迟"))
-                                Toast.makeText(MainActivity.this, "已经连接成功", Toast.LENGTH_SHORT).show();
-                            else Toast.makeText(MainActivity.this, backInfo, Toast.LENGTH_SHORT).show();
-                        });
-                    }
-                };
-                LoginAdapter.executeLoginIn(mAllMyInfo,callback);//调用登录方法
+                LoginAsyncTask task=new LoginAsyncTask(LoginAsyncTask.LoginMode,(s)->{
+                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
+                });
+                task.execute(mAllMyInfo);
             }
         });
-
 
         //断开连接
         button_disconnect.setOnClickListener(new View.OnClickListener()
@@ -121,29 +100,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                Callback callback=new Callback()
-                {
-                    @Override
-                    public void onFailure(Call call, IOException e)
-                    {
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException
-                    {
-                        String info=response.body().string().toString();
-                        runOnUiThread(()->{
-                            Toast.makeText(MainActivity.this,info,Toast.LENGTH_SHORT).show();
-                        });
-                        //Toast.makeText(MainActivity.this,info,Toast.LENGTH_SHORT).show();
-                    }
-                };
-                LoginAdapter.executeLoginOut(mAllMyInfo,callback);
+                LoginAsyncTask task=new LoginAsyncTask(LoginAsyncTask.LogOutMode,(s)->{
+                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
+                });
+                task.execute(mAllMyInfo);
             }
         });
-
-
     }
 
     @Override
@@ -188,5 +150,4 @@ public class MainActivity extends AppCompatActivity
     {
         super.onDestroy();
     }
-
 }

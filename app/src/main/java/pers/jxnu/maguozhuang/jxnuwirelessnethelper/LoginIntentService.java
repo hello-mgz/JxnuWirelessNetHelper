@@ -29,10 +29,6 @@ import okhttp3.Response;
  */
 public class LoginIntentService extends IntentService
 {
-
-    public static final int LoginByBroadcast=1;//通过广播登录，检测是否允许自动登录
-    public static final int LoginByActivity=2;//通过界面手动尝试登录
-    public static final String StartServiceCode="StartServiceCode";
     public static final String WifiName="\"jxnu_stu\"";
 
     // TODO: Rename actions, choose action names that describe tasks that this
@@ -133,39 +129,19 @@ public class LoginIntentService extends IntentService
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId)
     {
-        int LoginCode=intent.getIntExtra(StartServiceCode,0);
         WifiManager wifiManager=(WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         WifiInfo wifiInfo=wifiManager.getConnectionInfo();
         String ssid=wifiInfo.getSSID();
         if(ssid.equals(WifiName))
         {
-            String backInfo=null;
-            Callback callback=new Callback()
+            if(mAllMyInfo.isAutoLogin())//检查是否自动登录
             {
-                @Override
-                public void onFailure(Call call, IOException e)
-                {
-                    showNotification("未知错误");
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException
-                {
-                    String backInfo=response.body().string().toString();
-                    showNotification(backInfo);
-                }
-            };
-            switch (LoginCode)
-            {
-                case LoginByActivity:
-                    LoginAdapter.executeLoginIn(mAllMyInfo,callback);//调用登录方法
-                    break;
-                case LoginByBroadcast:
-                    if(mAllMyInfo.isAutoLogin())//检查是否自动登录
-                        LoginAdapter.executeLoginIn(mAllMyInfo,callback);
-                    break;
-                default:break;
+                LoginAsyncTask task=new LoginAsyncTask(LoginAsyncTask.LoginMode,(s)->{
+                    showNotification(s);
+                });
+                task.execute(mAllMyInfo);
             }
+
         }
         return super.onStartCommand(intent, flags, startId);
     }

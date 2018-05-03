@@ -14,7 +14,6 @@ public class MyReceiver extends BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         Intent startIntent=new Intent(context,LoginIntentService.class);
-        startIntent.putExtra(LoginIntentService.StartServiceCode,LoginIntentService.LoginByBroadcast);
         context.startService(startIntent);
     }
 }

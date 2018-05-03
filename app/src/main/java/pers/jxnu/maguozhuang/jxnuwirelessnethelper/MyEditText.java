@@ -49,7 +49,7 @@ public class MyEditText extends AppCompatEditText
             setSelection(getText().length());
     }
 
-    private void init(AttributeSet attrs)
+    private void init(AttributeSet attrs)//添加右图标，清除文字的功能
     {
         TypedArray typedArray=mContext.obtainStyledAttributes(attrs,R.styleable.MyEditText);
         delete_Img=typedArray.getDrawable(R.styleable.MyEditText_deleteImg);
