@@ -36,6 +36,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import pers.jxnu.maguozhuang.jxnuwirelessnethelper.util.ConfigManager;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar mToolbar;
     private InternetSpeedTextView speed_text;
     private AllMyInfo mAllMyInfo;
+    private TextView textView_announcement;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -106,6 +108,11 @@ public class MainActivity extends AppCompatActivity
                 task.execute(mAllMyInfo);
             }
         });
+
+        textView_announcement=(TextView) findViewById(R.id.textView_announcement);
+        textView_announcement.setText(
+                ConfigManager.getConfigInfo(getApplicationContext(),"announcement"));
+        Log.d("Debug",ConfigManager.getConfigInfo(getApplicationContext(),"announcement"));
     }
 
     @Override
@@ -149,5 +156,6 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
+        ConfigManager.setConfigInfo(getApplicationContext(),"announcement",String.valueOf(System.currentTimeMillis()));
     }
 }

@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 public class BreathLampMannager
 {
-
     private GradientDrawable mGrad;
     private TextView wifi_text;
     private Context mContext;
