@@ -7,7 +7,7 @@
         <item>校园宽带</item>
     </array>
     <string name="secret_str">
-    恭喜你，发现彩蛋！！！\n这是一个保留界面！
+    恭喜你，发现彩蛋！！！\n这是一个隐藏界面！本来是想给某个人一些惊喜的，但是已经没有太大的意义了。\n我也要离开了，祝君快乐常伴！
     </string>
     <string name="src_web"><a href='https://github.com/mgzgithub/JxnuWirelessNetHelper'>https://github.com/mgzgithub/JxnuWirelessNetHelper</a></string>
     <string name="announcement">接学校通知，从即日起每天晚上0点到早上6点断网，学校将统一关闭jxnu_stu无线信号。      \n　　\n　　学校一期无线网络基本建设完成，目前处于试运行状态，可能会出现信号中断或不稳定等情况，敬请谅解。目前无线信号已经覆盖了瑶湖校区域及青山湖校区的所有办公场所及学生公寓。大家只要搜索到了jxnu_tea jxnu_stu的无线信号，即可正常使用。jxnu_tea信号归老师使用，jxnu_stu信号归学生使用。\n\n　　学生用户凭校园卡和身份证可以到电信、联通或移动营业厅获取校园宽带上网账号。\n\n　　上网帐号为校园卡号，初始密码为身份证的后6位，修改后请牢记密码。 如果用户遇到需要频繁认证的情况，应该是你的帐号有其他人在使用，请大家在“自服务”里面修改密码。					</string>

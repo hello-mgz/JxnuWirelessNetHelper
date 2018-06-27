@@ -33,8 +33,7 @@ public class OtherActivity extends AppCompatActivity
         setContentView(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.layout.activity_other);
         ActionBar actionBar=getSupportActionBar();
 
-        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-        username=pref.getString("username","");
+        username=AllMyInfo.getInstance(getApplicationContext()).getUsername();
         text_net=(TextView)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.text_net);
         src_text=(TextView)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.src_text);
         mToolbar=(Toolbar)findViewById(R.id.about_toolbar);
@@ -92,7 +91,7 @@ public class OtherActivity extends AppCompatActivity
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
             {
-                if(e1.getRawX()-e2.getRawX()>100 && username.equals(yjusername))
+                if(e1.getRawX()-e2.getRawX()>100 && username.contains(yjusername))
                 {
                     startSecretTask();
                     return true;

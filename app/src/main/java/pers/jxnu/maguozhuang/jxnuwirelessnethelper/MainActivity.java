@@ -110,9 +110,8 @@ public class MainActivity extends AppCompatActivity
         });
 
         textView_announcement=(TextView) findViewById(R.id.textView_announcement);
-        textView_announcement.setText(
-                ConfigManager.getConfigInfo(getApplicationContext(),"announcement"));
-        Log.d("Debug",ConfigManager.getConfigInfo(getApplicationContext(),"announcement"));
+        textView_announcement.setText(R.string.announcement);
+        //Log.d("Debug",ConfigManager.getConfigInfo(getApplicationContext(),"announcement"));
     }
 
     @Override
@@ -156,6 +155,6 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
-        ConfigManager.setConfigInfo(getApplicationContext(),"announcement",String.valueOf(System.currentTimeMillis()));
+        //ConfigManager.setConfigInfo(getApplicationContext(),"announcement",String.valueOf(System.currentTimeMillis()));
     }
 }

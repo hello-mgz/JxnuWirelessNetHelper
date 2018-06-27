@@ -21,5 +21,6 @@ public class SecretActivity extends AppCompatActivity
         secret_text=(TextView)findViewById(pers.jxnu.maguozhuang.jxnuwirelessnethelper.R.id.secret_text);
         Typeface typeface=Typeface.createFromAsset(getAssets(),"fonts/myfont.ttf");
         secret_text.setTypeface(typeface);
+        secret_text.setText(R.string.secret_str);
     }
 }
